@@ -4,10 +4,11 @@
 using namespace std ; 
 
 
-int main() {
+int main(int argc , char* argv[]) {
+
+        git_libgit2_init();
 
 
-    git_libgit2_init();
 
-    
+        git_libgit2_shutdown();
 }
