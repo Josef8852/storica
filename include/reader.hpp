@@ -25,4 +25,4 @@ struct Commit {
 };
 
 
-std::vector<Commit> getCommits(const std::string &path) ;
+std::vector<Commit> readCommits(const std::string &path) ;

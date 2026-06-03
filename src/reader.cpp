@@ -5,7 +5,7 @@
 using namespace std ; 
 
 
-vector<Commit> getCommits(const string &path) {
+vector<Commit> readCommits(const string &path) {
 
     vector<Commit> commits ; 
 
