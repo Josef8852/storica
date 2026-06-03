@@ -21,7 +21,7 @@ vector<Commit> readCommits(const string &path) {
 
     int walker_error = git_revwalk_new(&walker, repo);
 
-    git_revwalk_sorting(walker, GIT_SORT_TIME); 
+    git_revwalk_sorting(walker, GIT_SORT_TIME | GIT_SORT_TOPOLOGICAL);
     
     walker_error = git_revwalk_push_head(walker); 
 
