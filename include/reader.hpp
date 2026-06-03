@@ -4,21 +4,25 @@
 #include <string>
 #include <vector>
 
-using namespace  std;
 
 struct FileChange {
-    string fileChanged ; 
+    std::string fileChanged ; 
     int linesAdded ; 
     int linesDeleted ; 
 };
 
+struct Author {
+    std::string name ; 
+    std::string email ;
+};
+
 struct Commit {
-    string hash ; 
-    string author ; 
-    string message ; 
+    std::string hash ; 
+    Author author ; 
+    std::string message ; 
     int64_t timeStamp  ;
-    vector<FileChange> fileChanges ;
+    std::vector<FileChange> fileChanges ;
 };
 
 
-vector<Commit> getCommits(const string &path) ;
+std::vector<Commit> getCommits(const std::string &path) ;
