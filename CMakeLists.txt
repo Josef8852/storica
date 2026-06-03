@@ -6,7 +6,7 @@ project(storica)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(storica src/main.cpp)
+add_executable(storica src/main.cpp src/reader.cpp)
 target_include_directories(storica PRIVATE include)
 
 find_package(PkgConfig REQUIRED)
