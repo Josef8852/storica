@@ -43,7 +43,6 @@ vector<Commit> readCommits(const string &path) {
         // commit metadata
         const char *message = git_commit_message(commit);
         const git_signature *author = git_commit_author(commit);
-        const char *encoding = git_commit_message_encoding(commit);
         git_time_t time = git_commit_time(commit); 
 
         Commit metadata = {
