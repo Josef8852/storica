@@ -98,31 +98,16 @@ vector<Commit> readCommits(const string &path) {
               size_t numDiffs =  git_diff_num_deltas(diff);
 
               for(int i = 0 ; i < numDiffs ; i++) {
-                  git_patch *patch = nullptr;
-                  
-                  int patch_error = git_patch_from_diff(&patch, diff, i);
-    
-                  if(patch_error < 0) {
-                      throw runtime_error("Failed to patch diff");
-                  }
-
-                  size_t context; 
-                  size_t additions ; 
-                  size_t deletions ; 
-                  
-                  git_patch_line_stats(&context,&additions,&deletions, patch);
-                  
+              
                   const git_diff_delta *delta  = git_diff_get_delta(diff, i);
 
                   fileChange = {
                       delta->new_file.path, 
-                      (int)additions , 
-                      (int)deletions ,
+                      0, 
+                      0,
                   };
 
                   metadata.fileChanges.push_back(fileChange);
-
-                  git_patch_free(patch);
               }
               
               git_diff_free(diff);
