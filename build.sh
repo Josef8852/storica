@@ -1,5 +1,4 @@
 #!/bin/bash
-rm -rf build
-cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake -B build
 cmake --build build
 ./build/storica /tmp/redis

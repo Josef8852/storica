@@ -14,7 +14,7 @@ int main(int argc , char* argv[]) {
                vector<Commit> commits = readCommits(argv[1]);
 
                for(auto commit : commits) {
-                   cout << commit.author.name << commit.message << endl ;
+                   cout << "Name: " << commit.author.name << " message: " << commit.message << endl ;
                }
                
            } 

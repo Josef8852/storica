@@ -41,7 +41,7 @@ vector<Commit> readCommits(const string &path) {
              throw runtime_error("Failed to get current commit");
         }
 
-        // commit metadata
+   
         const char *message = git_commit_message(commit);
         const git_signature *author = git_commit_author(commit);
         git_time_t time = git_commit_time(commit); 
