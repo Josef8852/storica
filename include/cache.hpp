@@ -6,5 +6,6 @@
 
 
 
-void saveCache(std::vector<Commit> commits , const std::string &path);
+void saveCache(const std::vector<Commit> &commits , const std::string &path);
 
+std::vector<Commit> loadCache(const std::string  &cachePath);

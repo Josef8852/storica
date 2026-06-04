@@ -6,13 +6,13 @@
 using json = nlohmann::json ;
 using namespace std ; 
 
-void saveCache(vector<Commit> commits, const string &path) {
+void saveCache(const vector<Commit> &commits, const string &path) {
     
-    std::ofstream file(path) ; 
+    ofstream file(path) ; 
 
     json data ; 
 
-    for(auto commit : commits) {
+    for(const auto &commit : commits) {
 
         json commitJson = {
             {"name" , commit.author.name}, 
@@ -23,7 +23,7 @@ void saveCache(vector<Commit> commits, const string &path) {
             {"fileChanges" , json::array()}
         };
 
-        for(auto fc : commit.fileChanges) {
+        for(const auto &fc : commit.fileChanges) {
             commitJson["fileChanges"].push_back({
                 {"fileChanged" , fc.fileChanged},
                 {"linesAdded" , fc.linesAdded},
