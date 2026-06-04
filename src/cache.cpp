@@ -38,7 +38,7 @@ void saveCache(const vector<Commit> &commits, const string &path) {
 
     file << data ;
     
-};
+}
 
 
 vector<Commit> loadCache(const std::string &cachePath) {
