@@ -37,6 +37,7 @@ vector<Commit> readCommits(const string &path) {
 
     if(walker_error < 0) {
          git_revwalk_free(walker); 
+         git_repository_free(repo);
          throw runtime_error("Failed to access repository HEAD");
     }
     
