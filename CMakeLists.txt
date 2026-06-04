@@ -4,7 +4,7 @@ project(storica)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -14,7 +14,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
-add_executable(storica src/main.cpp src/reader.cpp)
+add_executable(storica src/main.cpp src/reader.cpp src/cache.cpp)
 target_include_directories(storica PRIVATE include)
 
 find_package(PkgConfig REQUIRED)
