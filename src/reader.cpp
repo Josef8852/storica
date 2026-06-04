@@ -1,4 +1,5 @@
 #include "../include/reader.hpp"
+#include "../include/cache.hpp"
 #include <git2.h>
 #include <stdexcept>
 
@@ -15,6 +16,15 @@ vector<Commit> readCommits(const string &path) {
 
     if(repo_error  < 0) {
         throw runtime_error("Failed to open repo at: " + path);
+    }
+
+    string cachePath = string(git_repository_path(repo)) + "storica_cache.json";
+
+    vector<Commit> cached = loadCache(cachePath);
+
+    if(!cached.empty()) {
+        git_repository_free(repo);
+        return cached ;
     }
 
     git_revwalk *walker = nullptr ; 
@@ -123,6 +133,7 @@ vector<Commit> readCommits(const string &path) {
     git_revwalk_free(walker);
     git_repository_free(repo);
 
+    saveCache(commits, cachePath);
 
     return commits ;
 }
