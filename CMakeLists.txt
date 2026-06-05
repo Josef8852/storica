@@ -22,7 +22,14 @@ FetchContent_Declare(ftxui
 FetchContent_MakeAvailable(ftxui)
  
 
-add_executable(storica src/main.cpp src/reader.cpp src/cache.cpp src/analyzer.cpp)
+add_executable(
+storica
+src/main.cpp
+src/reader.cpp 
+src/cache.cpp 
+src/analyzer.cpp
+src/tui.cpp
+)
 
 
 find_package(PkgConfig REQUIRED)
