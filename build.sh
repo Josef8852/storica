@@ -1,4 +1,4 @@
 #!/bin/bash
 cmake -B build
 cmake --build build
-./build/storica /tmp/redis
+./build/storica /tmp/redis --hot

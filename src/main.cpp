@@ -1,6 +1,7 @@
 #include <git2.h>
 #include <iostream>
 #include "../include/reader.hpp"
+#include "../include/analyzer.hpp"
 
 
 using namespace std ; 
@@ -13,10 +14,14 @@ int main(int argc , char* argv[]) {
         try {
                vector<Commit> commits = readCommits(argv[1]);
 
-               for(auto commit : commits) {
-                   cout << "Name: " << commit.author.name << " message: " << commit.message << endl ;
-               }
+               vector<FileStat> stats = analyze(commits);
                
+
+               if(string(argv[2]) == "--hot") {
+                   for(int i = 0; i < 20; i++) {
+                       cout << stats[i].fileName << " " << stats[i].touchCount << endl;
+                   }
+               }
            } 
            catch(const exception& e) {
                cout << "error: " << e.what() << endl;
