@@ -14,7 +14,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
-add_executable(storica src/main.cpp src/reader.cpp src/cache.cpp)
+add_executable(storica src/main.cpp src/reader.cpp src/cache.cpp src/analyzer.cpp)
 target_include_directories(storica PRIVATE include)
 
 find_package(PkgConfig REQUIRED)
