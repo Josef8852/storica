@@ -38,7 +38,7 @@ void runTUI(const string &repoName, const vector<FileStat> &stats) {
     auto component = renderer | CatchEvent([&](Event event) -> bool {
         
         if(event == Event::Character("q")) {
-            screen.ExitLoopClosure();
+            screen.ExitLoopClosure()();
             return true ; 
         }
         return false ;
