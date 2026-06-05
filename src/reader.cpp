@@ -74,6 +74,11 @@ vector<Commit> readCommits(const string &path) {
             git_commit_free(commit);
             continue ;
         }
+        if (count > 1) {
+            commits.push_back(metadata);
+            git_commit_free(commit);
+            continue;
+        }
         else {
 
               git_commit *parent = nullptr;
