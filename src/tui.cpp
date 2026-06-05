@@ -35,7 +35,14 @@ void runTUI(const string &repoName, const vector<FileStat> &stats) {
           return vbox(items);
     });
 
-
+    auto component = renderer | CatchEvent([&](Event event) -> bool {
+        
+        if(event == Event::Character("q")) {
+            screen.ExitLoopClosure();
+            return true ; 
+        }
+        return false ;
+    });
   
     
     screen.Loop(renderer);
