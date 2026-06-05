@@ -20,7 +20,7 @@ void runTUI(const string &repoName, const vector<FileStat> &stats) {
           items.push_back(separator());
           float maxTouches = stats[0].touchCount; 
           
-          for(int i = 0; i < 20 && i < (int)stats.size(); i++) {
+          for(int i = selected; i < selected + 20 && i < (int)stats.size(); i++) {
               
               float ratio = stats[i].touchCount / maxTouches;
               items.push_back(hbox({
@@ -41,6 +41,17 @@ void runTUI(const string &repoName, const vector<FileStat> &stats) {
             screen.ExitLoopClosure()();
             return true ; 
         }
+
+        if(event == Event::ArrowDown) {
+            if(selected + 20 < (int)stats.size()) selected++;
+            return true ; 
+        }
+
+        if(event == Event::ArrowUp) {
+            if(selected > 0) selected--;
+            return true ; 
+        }
+        
         return false ;
     });
   
