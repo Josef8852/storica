@@ -1,4 +1,5 @@
 #include "../include/tui.hpp"
+#include "../include/utils.hpp"
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/component/screen_interactive.hpp>
@@ -41,7 +42,21 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
     return vbox(items) ;
 }
 
+Element renderChapterList(const vector<Chapter> &chapters , int selected) {
 
+    Elements  items ; 
+
+    for (int i = selected; i < selected + 20 && i < (int)chapters.size(); i++) {
+             items.push_back(hbox({
+                 text(formatDate(chapters[i].startDate) + " -> " + 
+                 formatDate(chapters[i].endDate)) | size(WIDTH, EQUAL, 25),
+                 text(chapters[i].name) | size(WIDTH, EQUAL, 25),
+                 text(to_string(chapters[i].commitCount))
+             }));
+    }
+
+    return vbox(items);
+}
 
 void runTUI(const string &repoName, const vector<FileStat> &stats , const vector<Chapter> &chapters) {
 
