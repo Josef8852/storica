@@ -98,7 +98,11 @@ void runTUI(const string &repoName, const vector<FileStat> &stats , const vector
         }) | border;
     });
 
+    
+
     auto component = renderer | CatchEvent([&](Event event) -> bool {
+
+        int listSize = showChapters ? (int)chapters.size() : (int)stats.size();
         
         if(event == Event::Character('q')) {
             screen.ExitLoopClosure()();
@@ -106,8 +110,10 @@ void runTUI(const string &repoName, const vector<FileStat> &stats , const vector
         }
 
         if(event == Event::ArrowDown) {
-            if(selected + 20 < (int)stats.size()) selected++;
-            return true ; 
+            if (selected + 20 < listSize) {
+                selected++;
+                return true;
+            }
         }
 
         if(event == Event::ArrowUp) {
