@@ -29,6 +29,7 @@ src/reader.cpp
 src/cache.cpp 
 src/analyzer.cpp
 src/tui.cpp
+src/chapters.cpp
 )
 
 
