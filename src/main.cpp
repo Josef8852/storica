@@ -15,7 +15,7 @@ int main(int argc , char* argv[]) {
         try {
                vector<Commit> commits = readCommits(argv[1]);
 
-               vector<FileStat> stats = analyze(commits);
+               vector<FileStat> stats = getCommitsStats(commits);
                
                string repoName = filesystem::path(argv[1]).filename().string();
                

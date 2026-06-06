@@ -3,6 +3,7 @@
 #include "reader.hpp"
 #include <cstdint>
 #include <string>
+#include <vector>
 
 struct FileStat {
     std::string fileName ; 
@@ -13,5 +14,14 @@ struct FileStat {
     bool isDeleted ;
 };
 
+struct WeekStat {
+    int64_t weekStart;
+    int commitsPerWeek;
+};
 
-std::vector<FileStat> analyze(const std::vector<Commit> &commits);
+constexpr int64_t SECONDS_PER_WEEK = 604800;
+
+
+std::vector<FileStat> getCommitsStats(const std::vector<Commit> &commits);
+
+std::vector<WeekStat> getWeeksStats(const std::vector<Commit> &commits) ; 

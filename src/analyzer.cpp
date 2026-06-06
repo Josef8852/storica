@@ -1,11 +1,12 @@
 #include "../include/analyzer.hpp"
+#include <cstdint>
 #include <unordered_map>
 #include <algorithm>
 
 using namespace std ;
 
 
-vector<FileStat> analyze(const vector<Commit> &commits) {
+vector<FileStat> getCommitsStats(const vector<Commit> &commits) {
     
     vector<FileStat> stats ; 
 
@@ -28,4 +29,30 @@ vector<FileStat> analyze(const vector<Commit> &commits) {
 
 
     return stats ; 
+}
+
+
+vector<WeekStat> getWeeksStats(const std::vector<Commit> &commits) {
+    
+    vector<WeekStat> weeksStats ; 
+
+    unordered_map<int64_t, int> weeks ; 
+
+    for(const auto &commit : commits) {
+
+        int64_t weekKey = (commit.timeStamp / SECONDS_PER_WEEK) * SECONDS_PER_WEEK  ; 
+
+        weeks[weekKey]++;
+    }
+
+    for(const auto &week : weeks) {
+        weeksStats.push_back({week.first , week.second});
+    }
+
+
+    sort(weeksStats.begin() ,weeksStats.end() , [] (const WeekStat &a , const WeekStat &b) -> bool {
+        return a.weekStart < b.weekStart ; 
+    });
+
+    return weeksStats ;
 }
