@@ -27,36 +27,40 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
 
     float maxTouches = stats[0].touchCount; 
     
-    for(int i = selected; i < selected + 20 && i < (int)stats.size(); i++) {
+    for(int i = 0; i  < (int)stats.size(); i++) {
         
         float ratio = stats[i].touchCount / maxTouches;
         
-        items.push_back(hbox({
+        auto row = hbox({
             text(stats[i].fileName) | size(WIDTH, EQUAL, 30),
             gauge(ratio) | size(WIDTH, EQUAL, 40) | color(Color::Blue),
             text(" " + to_string(stats[i].touchCount))
-        }));
+        });
         
-        items.push_back(text(""));
+        if (i == selected) row = row | focus | inverted;
+        items.push_back(row);
+    
     }
 
-    return vbox(items) ;
+    return vbox(items) | yframe ;
 }
 
 Element renderChapterList(const vector<Chapter> &chapters , int selected) {
 
     Elements  items ; 
 
-    for (int i = selected; i < selected + 20 && i < (int)chapters.size(); i++) {
-             items.push_back(hbox({
+    for (int i = 0;  i < (int)chapters.size(); i++) {
+             auto row = hbox({
                  text(formatDate(chapters[i].startDate) + " -> " + 
                  formatDate(chapters[i].endDate)) | size(WIDTH, EQUAL, 25),
                  text(chapters[i].name) | size(WIDTH, EQUAL, 25),
                  text(to_string(chapters[i].commitCount))
-             }));
+             });
+            if (i == selected) row = row | focus | inverted;
+            items.push_back(row);
     }
 
-    return vbox(items);
+    return vbox(items) | yframe;
 }
 
 Element renderFooter() {
@@ -91,8 +95,7 @@ void runTUI(const string &repoName, const vector<FileStat> &stats , const vector
         return vbox({
             renderHeader(repoName, showChapters),
             separator(),
-            body,
-            filler(),
+            body | yflex,
             separator(),
             renderFooter(),
         }) | border;
@@ -110,7 +113,7 @@ void runTUI(const string &repoName, const vector<FileStat> &stats , const vector
         }
 
         if(event == Event::ArrowDown) {
-            if (selected + 20 < listSize) {
+            if (selected + 1 < listSize) {
                 selected++;
                 return true;
             }
