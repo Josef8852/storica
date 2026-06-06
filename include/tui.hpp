@@ -13,6 +13,8 @@ ftxui::Element renderFileList(const std::vector<FileStat> &stats, int selected);
 
 ftxui::Element renderChapterList(const std::vector<Chapter> &chapters , int selected);
 
+ftxui::Element renderFooter();
+
 void runTUI(
     const std::string &repoName, 
     const std::vector<FileStat> &stats , 

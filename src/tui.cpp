@@ -26,6 +26,7 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
     Elements items ;
 
     float maxTouches = stats[0].touchCount; 
+    
     for(int i = selected; i < selected + 20 && i < (int)stats.size(); i++) {
         
         float ratio = stats[i].touchCount / maxTouches;
@@ -58,6 +59,22 @@ Element renderChapterList(const vector<Chapter> &chapters , int selected) {
     return vbox(items);
 }
 
+Element renderFooter() {
+
+    Elements items ; 
+    
+    items.push_back(hbox({
+         text(" ↑↓ ") | bold | color(Color::Black) | bgcolor(Color::GrayLight),
+         text(" navigate   "),
+         text(" c ") | bold | color(Color::Black) | bgcolor(Color::GrayLight),
+         text(" toggle view   "),
+         text(" q ") | bold | color(Color::Black) | bgcolor(Color::GrayLight),
+         text(" quit "),
+     }));
+
+    return vbox(items);
+}
+
 void runTUI(const string &repoName, const vector<FileStat> &stats , const vector<Chapter> &chapters) {
 
     int selected = 0;
@@ -67,20 +84,18 @@ void runTUI(const string &repoName, const vector<FileStat> &stats , const vector
     auto screen = ScreenInteractive::Fullscreen();
     
     auto renderer = Renderer([&] {
-        
-        Elements items;
-          items.push_back(text(repoName) | bold | center);
-          items.push_back(separator());
-       
-
-          if(showChapters) {
-            
-          }
-         
-      
-
-          
-          return vbox(items);
+        Element body = showChapters
+            ? renderChapterList(chapters, selected)
+            : renderFileList(stats, selected);
+    
+        return vbox({
+            renderHeader(repoName, showChapters),
+            separator(),
+            body,
+            filler(),
+            separator(),
+            renderFooter(),
+        }) | border;
     });
 
     auto component = renderer | CatchEvent([&](Event event) -> bool {
