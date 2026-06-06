@@ -11,10 +11,10 @@ using namespace std ;
 
 Element renderHeader(const string &repoName, bool showChapters) {
    auto header =  hbox({
-             text(" storica ") | bold | bgcolor(Color::Blue) | color(Color::White),
+             text(" Storica ") | bold | bgcolor(Color::Blue) | color(Color::White),
              text("  " + repoName + " ") | bold,
              filler(),
-             text(showChapters ? " chapters " : " hot files ") | color(Color::GrayLight),
+             text(showChapters ? " Chapters " : " All files ") | color(Color::GrayLight),
          });
 
    return header ;
@@ -56,6 +56,13 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
 Element renderChapterList(const vector<Chapter> &chapters , int selected) {
 
     Elements  items ; 
+
+    items.push_back(hbox({
+                text("DATE") | bold | color(Color::GrayDark) | size(WIDTH, EQUAL, 30),
+                text("NAME") | bold | color(Color::GrayDark) | size(WIDTH, EQUAL, 40),
+                text("COMMITS") | bold | color(Color::GrayDark),
+            }));
+    items.push_back(separator());
 
     for (int i = 0;  i < (int)chapters.size(); i++) {
              auto row = hbox({
