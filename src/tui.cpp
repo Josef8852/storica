@@ -1,5 +1,4 @@
 #include "../include/tui.hpp"
-#include "utils.hpp"
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/component/screen_interactive.hpp>
@@ -20,6 +19,30 @@ Element renderHeader(const string &repoName, bool showChapters) {
    return header ;
 }
 
+
+Element renderFileList(const std::vector<FileStat> &stats, int selected) {
+    
+    Elements items ;
+
+    float maxTouches = stats[0].touchCount; 
+    for(int i = selected; i < selected + 20 && i < (int)stats.size(); i++) {
+        
+        float ratio = stats[i].touchCount / maxTouches;
+        
+        items.push_back(hbox({
+            text(stats[i].fileName) | size(WIDTH, EQUAL, 30),
+            gauge(ratio) | size(WIDTH, EQUAL, 40) | color(Color::Blue),
+            text(" " + to_string(stats[i].touchCount))
+        }));
+        
+        items.push_back(text(""));
+    }
+
+    return vbox(items) ;
+}
+
+
+
 void runTUI(const string &repoName, const vector<FileStat> &stats , const vector<Chapter> &chapters) {
 
     int selected = 0;
@@ -36,30 +59,9 @@ void runTUI(const string &repoName, const vector<FileStat> &stats , const vector
        
 
           if(showChapters) {
-              for (int i = selected; i < selected + 20 && i < (int)chapters.size(); i++) {
-                       items.push_back(hbox({
-                           text(formatDate(chapters[i].startDate) + " -> " + formatDate(chapters[i].endDate)) | size(WIDTH, EQUAL, 25),
-                           text(chapters[i].name) | size(WIDTH, EQUAL, 25),
-                           text(to_string(chapters[i].commitCount))
-                       }));
-              }
+            
           }
-          else {
-                 float maxTouches = stats[0].touchCount; 
-                 for(int i = selected; i < selected + 20 && i < (int)stats.size(); i++) {
-                     
-                     float ratio = stats[i].touchCount / maxTouches;
-                     
-                     items.push_back(hbox({
-                         text(stats[i].fileName) | size(WIDTH, EQUAL, 30),
-                         gauge(ratio) | size(WIDTH, EQUAL, 40) | color(Color::Blue),
-                         text(" " + to_string(stats[i].touchCount))
-                     }));
-                     
-                     items.push_back(text(""));
-                 }
-          }
-          
+         
       
 
           
