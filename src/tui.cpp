@@ -8,6 +8,18 @@
 using namespace ftxui ;
 using namespace std ;
 
+
+Element renderHeader(const string &repoName, bool showChapters) {
+   auto header =  hbox({
+             text(" storica ") | bold | bgcolor(Color::Blue) | color(Color::White),
+             text("  " + repoName + " ") | bold,
+             filler(),
+             text(showChapters ? " chapters " : " hot files ") | color(Color::GrayLight),
+         });
+
+   return header ;
+}
+
 void runTUI(const string &repoName, const vector<FileStat> &stats , const vector<Chapter> &chapters) {
 
     int selected = 0;
