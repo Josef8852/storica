@@ -25,6 +25,14 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
     
     Elements items ;
 
+    items.push_back(hbox({
+                text("FILE") | bold | color(Color::GrayDark) | size(WIDTH, EQUAL, 30),
+                text("ACTIVITY") | bold | color(Color::GrayDark) | size(WIDTH, EQUAL, 40),
+                text("TOUCHES") | bold | color(Color::GrayDark),
+            }));
+            items.push_back(separator());
+
+
     float maxTouches = stats[0].touchCount; 
     
     for(int i = 0; i  < (int)stats.size(); i++) {
@@ -87,7 +95,7 @@ void runTUI(const string &repoName, const vector<FileStat> &stats , const vector
     
     auto screen = ScreenInteractive::Fullscreen();
     
-    auto renderer = Renderer([&] {
+    auto renderer = Renderer([&]() -> Element {
         Element body = showChapters
             ? renderChapterList(chapters, selected)
             : renderFileList(stats, selected);
