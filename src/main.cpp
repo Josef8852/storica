@@ -2,7 +2,6 @@
 #include "../include/analyzer.hpp"
 #include "../include/tui.hpp"
 #include "../include/chapters.hpp"
-#include "../include/utils.hpp"
 #include <git2.h>
 #include <iostream>
 #include <filesystem>
@@ -17,24 +16,19 @@ int main(int argc , char* argv[]) {
             return 1 ; 
         }
 
+        string repoName = filesystem::path(argv[1]).filename().string();
+
         git_libgit2_init();
 
         try {
                vector<Commit> commits = readCommits(argv[1]);
 
                vector<FileStat> stats = getCommitsStats(commits);
-               
-               string repoName = filesystem::path(argv[1]).filename().string();
 
                auto weeks = getWeeksStats(commits);
                
                auto chapters = detectChapters(weeks);
-               
-               for (const auto &c : chapters) {
-                   cout << formatDate(c.startDate) << " -> " << formatDate(c.endDate)
-                        << "  (" << c.commitCount << " commits)\n";
-               }
-               
+    
                runTUI(repoName, stats ,chapters);
                
            } 
