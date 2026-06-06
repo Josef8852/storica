@@ -30,7 +30,7 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
                 text("ACTIVITY") | bold | color(Color::GrayDark) | size(WIDTH, EQUAL, 40),
                 text("TOUCHES") | bold | color(Color::GrayDark),
             }));
-            items.push_back(separator());
+    items.push_back(separator());
 
 
     float maxTouches = stats[0].touchCount; 
