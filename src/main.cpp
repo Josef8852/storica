@@ -35,7 +35,7 @@ int main(int argc , char* argv[]) {
                         << "  (" << c.commitCount << " commits)\n";
                }
                
-               runTUI(repoName, stats);
+               runTUI(repoName, stats ,chapters);
                
            } 
            catch(const exception& e) {
