@@ -10,6 +10,11 @@ using namespace std ;
 
 int main(int argc , char* argv[]) {
 
+        if (argc < 2) { 
+            cout << "usage: storica <repo>\n";
+            return 1 ; 
+        }
+
         git_libgit2_init();
 
         try {
