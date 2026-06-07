@@ -1,5 +1,6 @@
 #include "../include/tui.hpp"
 #include "../include/utils.hpp"
+#include <algorithm>
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/component/screen_interactive.hpp>
@@ -34,8 +35,12 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
 
 
     float maxTouches = stats[0].touchCount; 
+
+    int start = max(0,selected-5);
+
+    int end = min((int) stats.size(), start+25);
     
-    for(int i = 0; i  < (int)stats.size(); i++) {
+    for(int i = start; i  < end; i++) {
         
         float ratio = stats[i].touchCount / maxTouches;
         
@@ -50,7 +55,7 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
     
     }
 
-    return vbox(items) | yframe ;
+    return vbox(items)  ;
 }
 
 Element renderChapterList(const vector<Chapter> &chapters , int selected) {
