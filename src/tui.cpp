@@ -43,14 +43,20 @@ Element renderFileList(const std::vector<FileStat> &stats, int selected) {
     for(int i = start; i  < end; i++) {
         
         float ratio = stats[i].touchCount / maxTouches;
+
+        string label = (i == selected ? "❯ " : "  ") + stats[i].fileName;
+
+        auto arrow = text(label) | size(WIDTH, EQUAL, 30);
+
+        if (i == selected) arrow = arrow | color(Color::Green) | bold;
         
         auto row = hbox({
-            text(stats[i].fileName) | size(WIDTH, EQUAL, 30),
-            gauge(ratio) | size(WIDTH, EQUAL, 40) | color(Color::Blue),
-            text(" " + to_string(stats[i].touchCount))
+            arrow,
+            gauge(ratio) | size(WIDTH, EQUAL, 40) | color(Color::Green),
+            text(" " + to_string(stats[i].touchCount)) | color(Color::Yellow)
         });
         
-        if (i == selected) row = row | focus | inverted;
+
         items.push_back(row);
     
     }
@@ -70,9 +76,14 @@ Element renderChapterList(const vector<Chapter> &chapters , int selected) {
     items.push_back(separator());
 
     for (int i = 0;  i < (int)chapters.size(); i++) {
+
+        string marker = (i == selected ? "❯ " : "  ");
+        string dateStr = marker + formatDate(chapters[i].startDate) + " -> " + formatDate(chapters[i].endDate);
+        auto dateCell = text(dateStr) | size(WIDTH, EQUAL, 30);
+        if (i == selected) dateCell = dateCell | color(Color::Green) | bold;
+            
              auto row = hbox({
-                 text(formatDate(chapters[i].startDate) + " -> " + 
-                 formatDate(chapters[i].endDate)) | size(WIDTH, EQUAL, 25),
+                 dateCell ,
                  text(chapters[i].name) | size(WIDTH, EQUAL, 25),
                  text(to_string(chapters[i].commitCount))
              });
