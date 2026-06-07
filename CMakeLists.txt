@@ -31,6 +31,7 @@ src/analyzer.cpp
 src/tui.cpp
 src/chapters.cpp
 src/utils.cpp
+src/inspector.cpp
 )
 
 
